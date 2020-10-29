@@ -1,7 +1,7 @@
 const express=require("express")
 const helmet=require("helmet")
 const cors=require("cors")
-const usersRouter=require("")
+const usersRouter=require("./users/userRouter")
 const session=require("express-session")
 const knexSessionStore=require("connect-session-knex")(session)
 const db=require("./database/config")
@@ -24,6 +24,9 @@ server.use(session({
 server.use(usersRouter)
 server.use((err,req,res,next)=>{
     console.log(err)
+    res.status(500).json({
+        message:"something went wrong"
+    })
 })
 
 server.listen(port,()=>{
